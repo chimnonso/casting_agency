@@ -9,6 +9,7 @@ db = SQLAlchemy()
 
 def setup_db(app, database_path=database_path):
     app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://postgres:foobar@localhost:5432/{database_name}"
+    # app.config['SQLALCHEMY_DATABASE_URI'] = database_path
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
@@ -42,7 +43,7 @@ class Movie(db.Model):
             'id': self.id,
             'title': self.title,
             'release_date': self.release_date,
-            'actors': [actor.format() for actor in self.actors]
+            'actors': list(map(lambda actor: actor.format(), self.actors))
         }
 
 
@@ -76,8 +77,8 @@ class Actor(db.Model):
     def format(self):
         return {
             'id': self.id,
-            'name': self.name
-            'age': self.age
+            'name': self.name,
+            'age': self.age,
             'gender': self.gender,
-            'movie_id': self.movie_id
+            'movie_id': self.movie_id,
         }

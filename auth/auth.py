@@ -8,9 +8,9 @@ import os
 
 app = Flask(__name__)
 
-AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
+AUTH0_DOMAIN = "dev-xcke28sy.us.auth0.com"
 ALGORITHMS = ['RS256']
-API_AUDIENCE = os.environ['API_AUDIENCE']
+API_AUDIENCE = "casting"
 
 
 class AuthError(Exception):
@@ -120,7 +120,7 @@ def check_permissions(permission, payload):
 
     return True
 
-def requires_auth(permission='')
+def requires_auth(permission=''):
     def requires_auth_decorator(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
